@@ -11,12 +11,11 @@
 
 <body>
     <div id="app">
-        <button v-on:click="increase(2, $event)">Click Me</button>
-        <p>{{ counter }}</p>
-        <p v-on:mousemove="updateCoordinates">Coordinates: {{ x }} / {{ y }}
-            -<span v-on:mousemove.stop="">DEAD SPOT</span>
-        </p>
-        <input type="text" v-on:keyup.enter="alertMe">
+        <button v-on:click="counter++">Increase</button>
+        <button v-on:click="counter--">Increase</button>
+        <button v-on:click="secondCounter++">Increase Second</button>
+        <p>Counter: {{ counter }} | {{ secondCounter }}</p>
+        <p>Result: {{ result() }} | {{ output }}</p>
     </div>
 
 
@@ -25,19 +24,17 @@
             el: '#app',
             data: {
                 counter: 0,
-                x: 0,
-                y: 0
+                secondCounter: 0
+            },
+            computed: {
+                output: function() {
+                    console.log('computed')
+                    return this.counter > 5 ? 'greater than 5' : 'Smaller than 5';
+                }
             },
             methods: {
-                increase: function (step, event) {
-                    this.counter += step;
-                },
-                updateCoordinates: function (event) {
-                    this.x = event.clientX;
-                    this.y = event.clientY;
-                },
-                alertMe: function () {
-                    alert('Alert!');
+                result() {
+                    return this.counter > 5 ? 'greater than 5' : 'Smaller than 5';
                 }
             }
         });
